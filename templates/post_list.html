@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+        <div class="row">
+            <div class="col-sm-12">
+                {% for obj in object_list %}
+                    {% if obj.image %}
+                        <img src="{{ obj.image.url }}" class="img-responsive" alt="">
+                    {% endif %}
+                    <a href="{{ obj.get_absolute_url }}"><h3>{{ obj.title }}{% if obj.draft %} - <small><span style="color:red;">Draft</span></small>{% endif %}</h3></a><br>
+                    {% if obj.user.get_full_name %}
+                        <h4>Author: <strong>{{ obj.user.get_full_name }}</strong></h4>
+                    {% endif %}
+                    <!--<small>Posted <strong>{{ obj.timestamp|timesince }} </strong>ago</small><br><br>-->
+                    <small>Published <strong>{{ obj.publish }} </strong></small><br><br>
+                    <p>
+                        <h4>{{ obj.content|linebreaks|truncatechars:120 }}</h4>
+                    </p><br>
+                    <p>
+                        <a href="{{ obj.get_absolute_url }}" class="btn btn-primary" role="button">View</a>
+                        <a href="{{ obj.get_absolute_url }}edit" class="btn btn-info" role="button">Edit</a>
+                        <a href="{{ obj.get_absolute_url }}delete" class="btn btn-danger pull-right" role="button">Delete</a>
+                    </p><br><br><br>
+                {% endfor %}
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if object_list.has_previous %}
+                            <a href="?page={{ object_list.previous_page_number }}">previous</a>
+                        {% endif %}
+
+                        <span class="current">
+                            Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
+                        </span>
+
+                        {% if object_list.has_next %}
+                            <a href="?page={{ object_list.next_page_number }}">next</a>
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+        </div>
+{% endblock %}

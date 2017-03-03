@@ -1,0 +1,41 @@
+h1 {
+    color: lightblue;
+}
+body,
+.container .row,
+.navbar-toggle,
+.navbar-collapse,
+.container-fluid {
+    background-color: #333333;
+}
+h4,
+.pagination .step-links .current {
+    color: #bbccdd !important;
+}
+small {
+    color: #79aec8;
+}
+textarea,
+input[type=text] {
+    color:aliceblue;
+    background-color: dimgray;
+    border: 0;
+    width: 100%;
+}
+label {
+    display: block;
+    color: lightblue;
+}
+#id_image {
+    background-color: inherit;
+}
+.navbar {
+    margin-top: 20px;
+    margin-bottom: 80px;
+}
+span[data-pin-href='https://www.pinterest.com/pin/create/button/'] {
+    padding: 10px !important;
+    margin-bottom: -13px;
+    height: 33.1px !important;
+    width: 60px !important;
+}
