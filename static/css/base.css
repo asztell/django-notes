@@ -39,3 +39,7 @@ span[data-pin-href='https://www.pinterest.com/pin/create/button/'] {
     height: 33.1px !important;
     width: 60px !important;
 }
+#post-search-form {
+    margin-top: -50px;
+    margin-bottom: 60px;
+}

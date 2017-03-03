@@ -3,6 +3,23 @@
 {% block content %}
         <div class="row">
             <div class="col-sm-12">
+                <p>
+                    <form id="post-search-form" class="form-inline pull-right" method="get" action="">
+                        <div class="form-group">
+                            <!--<label class="sr-only" for="searchPosts">Search posts</label>-->
+                            <div class="input-group">
+                                <input type="text" name="q" class="form-control" id="searchPosts" placeholder="Search posts" value="{{ request.GET.q }}">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">searchPosts</button>
+                    </form>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
                 {% for obj in object_list %}
                     {% if obj.image %}
                         <img src="{{ obj.image.url }}" class="img-responsive" alt="">
@@ -25,7 +42,7 @@
                 <div class="pagination">
                     <span class="step-links">
                         {% if object_list.has_previous %}
-                            <a href="?page={{ object_list.previous_page_number }}">previous</a>
+                            <a href="?page={{ object_list.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">previous</a>
                         {% endif %}
 
                         <span class="current">
@@ -33,7 +50,7 @@
                         </span>
 
                         {% if object_list.has_next %}
-                            <a href="?page={{ object_list.next_page_number }}">next</a>
+                            <a href="?page={{ object_list.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">next</a>
                         {% endif %}
                     </span>
                 </div>
