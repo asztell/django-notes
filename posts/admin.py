@@ -4,10 +4,10 @@ from django.contrib import admin
 from .models import Post
 
 class PostModelAdmin(admin.ModelAdmin):
-    list_display = ['title', 'timestamp', 'updated']
+    list_display = ['title', 'user', 'timestamp', 'updated', 'draft', 'publish', 'image', 'slug']
     list_display_links = ['timestamp', 'updated']
-    list_editable = ['title']
-    list_filter = ['updated', 'timestamp']
+    list_editable = ['title', 'draft', 'publish', 'image']
+    list_filter = ['user', 'title', 'publish', 'updated', 'timestamp', 'image']
     search_fields = ['title', 'content']
 
     class Meta:

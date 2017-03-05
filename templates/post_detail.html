@@ -19,7 +19,7 @@
             {% endif %}
             <!--<small>Posted <strong>{{ instance.timestamp|timesince }}</strong> ago</small><br><br><br>-->
             <small>Posted <strong>{{ instance.publish }}</strong> ago</small><br><br><br>
-            <p><h4>{{ instance.content }}</h4></p><br>
+            <p><h4>{{ instance.content|safe }}</h4></p><br>
             <p>
                 <a class="btn btn-primary" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">
                     Facebook

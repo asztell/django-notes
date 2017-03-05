@@ -14,8 +14,6 @@ from .forms import PostForm
 def posts_create(request):
     if not request.user.is_staff or not request.user.is_superuser:
         raise Http404
-    if not request.user.is_authenticated():
-        raise Http404
     form = PostForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         instance = form.save(commit=False)
@@ -23,8 +21,6 @@ def posts_create(request):
         instance.save()
         messages.success(request, 'New post successfully created!')
         return HttpResponseRedirect(instance.get_absolute_url())
-    # else:
-    #     messages.error(request, 'Something went wrong... New post NOT created.')
     context = {
         'form':form,
         'title':'Create',
@@ -34,7 +30,6 @@ def posts_create(request):
 
 def posts_detail(request, slug=None):
     instance = get_object_or_404(Post, slug=slug)
-    print instance.draft
     if instance.draft or instance.publish > timezone.now().date():
         if not request.user.is_staff or not request.user.is_superuser:
             raise Http404
@@ -48,9 +43,13 @@ def posts_detail(request, slug=None):
 
 
 def posts_list(request):
-    queryset_list = Post.objects.active().order_by('-timestamp')
+    today = timezone.now().date()
+    queryset_list = Post.objects.active()
+    # queryset_list = Post.objects.all()
+    print 'posts_list: queryset_list == ' + str(queryset_list)
     if request.user.is_staff or request.user.is_superuser:
         queryset_list = Post.objects.all()
+        print 'posts_list > if request: queryset_list == ' + str(queryset_list)
     # queryset_list = Post.objects.filter(draft=False).filter(publish__lte=timezone.now())
     query = request.GET.get('q')
     if query:
@@ -60,7 +59,7 @@ def posts_list(request):
             Q(user__first_name__icontains=query) |
             Q(user__last_name__icontains=query)
         )
-    paginator = Paginator(queryset_list, 4)  # Show 25 contacts per page
+    paginator = Paginator(queryset_list, 3)  # Show 25 contacts per page
     page = request.GET.get('page')
     try:
         queryset = paginator.page(page)
@@ -73,6 +72,8 @@ def posts_list(request):
     context = {
         'object_list':queryset,
         'title':'List',
+        'page_request_var': 'page',
+        'today': today
     }
     return render(request, 'post_list.html', context)
 
@@ -87,8 +88,6 @@ def posts_update(request, slug=None):
         instance.save()
         messages.success(request, 'Post successfully updated!')
         return HttpResponseRedirect(instance.get_absolute_url())
-    # else:
-    #     messages.error(request, 'Something went wrong... Post NOT updated.')
     context = {
         'instance':instance,
         'form':form,
