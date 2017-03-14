@@ -43,3 +43,6 @@ span[data-pin-href='https://www.pinterest.com/pin/create/button/'] {
     margin-top: -50px;
     margin-bottom: 60px;
 }
+p img {
+    width: 100%;
+}

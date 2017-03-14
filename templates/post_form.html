@@ -1,12 +1,21 @@
 {% extends 'base.html' %}
 
+{% load crispy_forms_tags %}
+
 {% block content %}
 
     {{ block.super }}
+    <!--<div class="col-sm-6">-->
+        <!--<h1>Preview</h1>-->
+        <!--<div class="content-preview">-->
+            <!--&lt;!&ndash;<h3 id="preview-title"></h3>&ndash;&gt;-->
+            <!--<p id="preview-content"></p>-->
+        <!--</div>-->
+    <!--</div>-->
     <div class="col-sm-12">
         <h1>{{ title }} Note</h1><br>
         <form method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
-        {{ form.as_p }}<br>
+        {{ form | crispy }}<br>
         <input class="btn btn-primary" type="submit" value="Save"/>
         </form>
     </div>

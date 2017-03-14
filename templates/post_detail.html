@@ -40,6 +40,7 @@
                 <!--<a href="{{ obj.get_absolute_url }}edit" class="btn btn-info" role="button">Edit</a>-->
                 <!--<a href="{{ obj.get_absolute_url }}delete" class="btn btn-danger pull-right" role="button">Delete</a>-->
             <!--</p>-->
+            <div style="color: #6cb2e4">{{ instance.comment_set.all }}</div>
             <div class="fb-comments" data-href="{{ request.build_absolute_uri }}" data-numposts="5"></div>
         </div>
     </div>
